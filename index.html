@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Natalino Sousa | NATATENISS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+    :root {
+      --court:   #2A4A12;
+      --court-lt:#3D6B1A;
+      --clay:    #B86A2A;
+      --clay-lt: #D4854A;
+      --sand:    #F2E8D9;
+      --dark:    #111810;
+      --off:     #F7F4EF;
+      --white:   #ffffff;
+      --muted:   #6B7060;
+      --line:    rgba(255,255,255,0.08);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--off);
+      color: var(--dark);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 5%;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background .35s, box-shadow .35s;
+    }
+    nav.scrolled {
+      background: rgba(17,24,16,0.97);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    .nav-brand {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-brand span { color: var(--clay); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: .8rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--clay-lt); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: var(--dark);
+      padding: 20px 5% 28px;
+      z-index: 99;
+    }
+    .mobile-menu.open { display: flex; flex-direction: column; }
+    .mobile-menu a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--line);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .mobile-menu a:hover { color: var(--clay-lt); }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('natalino1.jpeg');
+      background-size: cover;
+      background-position: center 20%;
+      filter: brightness(.55) saturate(.9);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(17,24,16,0.98) 0%,
+        rgba(17,24,16,0.5) 45%,
+        rgba(17,24,16,0.1) 100%
+      );
+    }
+
+    .court-lines {
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 6% 8vh;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--clay);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px; height: 1.5px;
+      background: var(--clay);
+    }
+
+    .hero-name {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      color: var(--white);
+      line-height: 1;
+      letter-spacing: -.01em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .hero-name .line2 { color: var(--clay); }
+
+    .hero-handle {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      color: rgba(255,255,255,0.45);
+      letter-spacing: .12em;
+      margin-bottom: 28px;
+      font-weight: 400;
+    }
+
+    .hero-desc {
+      font-size: .95rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.75;
+      max-width: 540px;
+      margin-bottom: 40px;
+    }
+
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn {
+      padding: 13px 30px;
+      border-radius: 2px;
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: .2s;
+      display: inline-block;
+    }
+    .btn-clay { background: var(--clay); color: var(--white); }
+    .btn-clay:hover { background: var(--clay-lt); transform: translateY(-1px); }
+    .btn-ghost { border: 1.5px solid rgba(255,255,255,0.3); color: var(--white); }
+    .btn-ghost:hover { border-color: var(--clay); background: rgba(184,106,42,0.12); }
+
+    section { padding: 100px 5%; scroll-margin-top: 64px; }
+    .container { max-width: 1100px; margin: auto; }
+
+    .label {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--clay);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .label::before {
+      content: '';
+      display: block;
+      width: 22px; height: 1.5px;
+      background: var(--clay);
+    }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--dark);
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-title em { font-style: normal; color: var(--clay); }
+    .section-sub {
+      font-size: .95rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 600px;
+    }
+
+    .stats-bar { background: var(--dark); padding: 0 5%; }
+    .stats-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-left: 1px solid var(--line);
+    }
+    .stat-item {
+      padding: 36px 28px;
+      border-right: 1px solid var(--line);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .stat-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--clay);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: .78rem;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      line-height: 1.4;
+    }
+
+    .sobre { background: var(--off); }
+
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .sobre-photo { position: relative; }
+    .sobre-photo img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 3/4;
+      filter: saturate(.85);
+    }
+    .sobre-photo-accent {
+      position: absolute;
+      bottom: -16px;
+      right: -16px;
+      width: 100%;
+      height: 100%;
+      border: 2px solid var(--clay);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .sobre-photo-badge {
+      position: absolute;
+      bottom: 24px;
+      left: -20px;
+      background: var(--clay);
+      color: var(--white);
+      padding: 14px 20px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      line-height: 1.3;
+    }
+
+    .sobre-text .section-title { margin-bottom: 24px; }
+    .sobre-text p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 18px;
+      font-size: .95rem;
+    }
+    .sobre-text strong { color: var(--dark); }
+
+    .cert-list { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .cert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: .88rem;
+      color: var(--dark);
+      line-height: 1.5;
+    }
+    .cert-item i { color: var(--clay); font-size: 14px; margin-top: 2px; flex-shrink: 0; }
+
+    .trajetoria { background: var(--dark); }
+    .trajetoria .section-title { color: var(--white); }
+    .trajetoria .section-sub { color: rgba(255,255,255,0.5); }
+
+    .traj-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 56px;
+    }
+
+    .traj-card { border-top: 2px solid var(--clay); padding-top: 24px; }
+    .traj-card-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 16px;
+    }
+    .traj-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .traj-card li {
+      font-size: .88rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+      padding-left: 16px;
+      position: relative;
+    }
+    .traj-card li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--clay);
+    }
+    .traj-card li strong { color: rgba(255,255,255,0.9); }
+
+    .atletas-strip { background: var(--clay); padding: 28px 5%; overflow: hidden; }
+    .atletas-inner { max-width: 1100px; margin: auto; }
+    .atletas-label {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 12px;
+    }
+    .atletas-names { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+    .atleta-tag {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+    .atleta-tag::after { content: ' ·'; opacity: .4; }
+    .atleta-tag:last-child::after { display: none; }
+
+    .servicos { background: var(--off); }
+
+    .servicos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .servico-card {
+      background: var(--white);
+      padding: 32px 28px;
+      border-bottom: 3px solid var(--clay);
+      transition: .3s;
+    }
+    .servico-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+
+    .servico-icon {
+      width: 48px; height: 48px;
+      background: rgba(184,106,42,0.1);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .servico-icon i { color: var(--clay); font-size: 22px; }
+    .servico-card h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .servico-card p { font-size: .88rem; color: var(--muted); line-height: 1.65; }
+
+    .porque {
+      background: var(--court);
+      position: relative;
+      overflow: hidden;
+      padding: 100px 5%;
+    }
+    .porque::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .porque-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .porque-quote {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.35;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+    }
+    .porque-quote em { font-style: normal; color: var(--clay-lt); }
+
+    .porque-list { display: flex; flex-direction: column; gap: 20px; }
+    .porq-item { display: flex; gap: 16px; align-items: flex-start; }
+    .porq-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.15);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 32px;
+    }
+    .porq-text { font-size: .9rem; color: rgba(255,255,255,0.75); line-height: 1.65; }
+    .porq-text strong { color: var(--white); }
+
+    .contato { background: var(--dark); }
+
+    .contato-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-top: 56px;
+      align-items: start;
+    }
+
+    .social-links { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
+      transition: .25s;
+    }
+    .social-link:hover { border-color: var(--clay); background: rgba(184,106,42,0.1); color: var(--white); }
+    .social-link i { color: var(--clay); font-size: 20px; width: 24px; text-align: center; }
+    .social-link .soc-label { flex: 1; }
+    .social-link .soc-handle { font-size: .8rem; color: rgba(255,255,255,0.4); }
+
+    .contato-msg {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 600;
+      color: var(--white);
+      text-transform: uppercase;
+      line-height: 1.3;
+      letter-spacing: .02em;
+      margin-bottom: 20px;
+    }
+    .contato-msg em { font-style: normal; color: var(--clay); }
+    .contato-desc { font-size: .9rem; color: rgba(255,255,255,0.55); line-height: 1.75; margin-bottom: 32px; }
+
+    footer {
+      background: #0A0F09;
+      padding: 32px 5%;
+      text-align: center;
+      border-top: 1px solid var(--line);
+    }
+    .footer-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .footer-logo span { color: var(--clay); }
+    .footer-copy { font-size: .78rem; color: rgba(255,255,255,0.3); }
+
+    @media (max-width: 1024px) {
+      .sobre-grid { grid-template-columns: 1fr; gap: 48px; }
+      .sobre-photo { max-width: 420px; }
+      .traj-grid { grid-template-columns: 1fr; gap: 32px; }
+      .servicos-grid { grid-template-columns: repeat(2, 1fr); }
+      .porque-inner { grid-template-columns: 1fr; gap: 40px; }
+      .contato-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .servicos-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      section { padding: 80px 4%; }
+      .stats-bar { padding: 0 4%; }
+      .hero-content { padding: 0 4% 6vh; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#hero" class="nav-brand">Nata<span>Tennis</span></a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Trajetória</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#conquistas">Conquistas</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#sobre" onclick="closeMenu()">Trajetória</a>
+  <a href="#servicos" onclick="closeMenu()">Serviços</a>
+  <a href="#conquistas" onclick="closeMenu()">Conquistas</a>
+  <a href="#contato" onclick="closeMenu()">Contato</a>
+</div>
+
+<section id="hero" class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="court-lines"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Treinador &amp; Atleta de Tênis</div>
+    <h1 class="hero-name">Natalino<br><span class="line2">Sousa</span></h1>
+    <div class="hero-handle">@NATATENISS</div>
+    <p class="hero-desc">Mais de 20 anos dedicados ao tênis. Metodologia própria, formação ITF e Roland-Garros, e a experiência de estar em quadra com os maiores nomes do esporte mundial.</p>
+    <div class="hero-ctas">
+      <a href="#contato" class="btn btn-clay">Treinar com Natalino</a>
+      <a href="#sobre" class="btn btn-ghost">Conhecer a trajetória</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Anos de experiência</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">4x</div>
+      <div class="stat-label">Tetracampeão Interclubes 1ª Classe — SPFC</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">ITF</div>
+      <div class="stat-label">Certificado — Biomecânica, Coaching &amp; Nutrição</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">1ª</div>
+      <div class="stat-label">Classe — Federação Paulista de Tênis</div>
+    </div>
+  </div>
+</div>
+
+<section class="sobre" id="sobre">
+  <div class="container">
+    <div class="sobre-grid">
+      <div class="sobre-photo">
+        <img src="natalino2.jpeg" alt="Natalino Sousa em quadra">
+        <div class="sobre-photo-accent"></div>
+        <div class="sobre-photo-badge">Tênis é<br>estilo de vida</div>
+      </div>
+      <div class="sobre-text">
+        <div class="label">Quem é Natalino</div>
+        <h2 class="section-title">Desde os <em>5 anos</em> em quadra.</h2>
+        <p>Tudo começou como gandula. Desde então, Natalino construiu uma trajetória marcada por dedicação, aprendizado ao lado de grandes nomes do tênis brasileiro e internacional, e uma metodologia própria que reflete cada experiência acumulada.</p>
+        <p>Formado em <strong>Educação Física</strong>, com especializações focadas no tênis de alta performance, Natalino alinha conhecimento técnico, ciência do esporte e experiência prática numa proposta de treinamento individualizada.</p>
+        <p>Viveu o dia a dia do tênis argentino nas academias Coria e Monachesi Hood, aprofundando o contato com o tênis sul-americano de excelência.</p>
+        <div class="cert-list">
+          <div class="cert-item"><i class="fa-solid fa-certificate"></i><span>Workshop Internacional de Tênis</span></div>
+          <div class="cert-item"><i class="fa-solid fa-certificate"></i><span>ITF — Biomecânica, Coaching e Nutrição Esportiva</span></div>
+          <div class="cert-item"><i class="fa-solid fa-certificate"></i><span>ITF — Comportamento, Estratégia e História do Tênis</span></div>
+          <div class="cert-item"><i class="fa-solid fa-certificate"></i><span>Workshop Tênis Excelência Roland-Garros Junior Series</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trajetoria" id="conquistas">
+  <div class="container">
+    <div class="label" style="color:var(--clay);">Carreira &amp; História</div>
+    <h2 class="section-title" style="color:var(--white);">Uma trajetória <em>marcante</em>.</h2>
+    <p class="section-sub">Conquistas dentro e fora de quadra que definem quem é Natalino Sousa.</p>
+    <div class="traj-grid">
+      <div class="traj-card">
+        <div class="traj-card-title">Como Treinador</div>
+        <ul>
+          <li>Formou <strong>campeões juvenis brasileiros</strong> em todas as categorias de idade</li>
+          <li>Treinou atletas profissionais no masculino e no feminino</li>
+          <li>Sparring de <strong>Thomaz Bellucci, Rogério Dutra Silva, Guilherme Clezar, Leonardo Kirche e Flávio Saretta</strong></li>
+          <li>Em quadra com <strong>Rafael Nadal</strong> na preparação para o Brasil Open 2013</li>
+          <li>Formador e Treinador de Professores — treinos técnicos e consultorias</li>
+          <li>Organizador de torneios e juiz de linha no Challenger do Aberto de São Paulo</li>
+        </ul>
+      </div>
+      <div class="traj-card">
+        <div class="traj-card-title">Como Atleta</div>
+        <ul>
+          <li>Venceu em <strong>todas as categorias</strong> da Federação Paulista de Tênis</li>
+          <li>Alcançou a <strong>1ª Classe</strong> na Federação Paulista</li>
+          <li>Pelo São Paulo FC — <strong>tetracampeão do Interclubes 1ª Classe</strong></li>
+          <li>Semifinalista do Brasileiro de Clubes Profissional</li>
+          <li>Campeão do <strong>World Tennis Masters Tour MT100</strong></li>
+          <li>Vários títulos em torneios abertos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="atletas-strip">
+  <div class="atletas-inner">
+    <div class="atletas-label">Gillette Federer Tour 2012 — Presente em todos os eventos ao lado de:</div>
+    <div class="atletas-names">
+      <span class="atleta-tag">Roger Federer</span>
+      <span class="atleta-tag">Maria Sharapova</span>
+      <span class="atleta-tag">Serena Williams</span>
+      <span class="atleta-tag">Jo-Wilfried Tsonga</span>
+      <span class="atleta-tag">Victoria Azarenka</span>
+      <span class="atleta-tag">Tommy Haas</span>
+      <span class="atleta-tag">Caroline Wozniacki</span>
+      <span class="atleta-tag">Bob &amp; Mike Bryan</span>
+      <span class="atleta-tag">Thomaz Bellucci</span>
+      <span class="atleta-tag">Bruno Soares</span>
+      <span class="atleta-tag">Marcelo Melo</span>
+    </div>
+  </div>
+</div>
+
+<section class="servicos" id="servicos">
+  <div class="container">
+    <div class="label">O que Natalino oferece</div>
+    <h2 class="section-title">Modalidades de <em>Treino</em></h2>
+    <p class="section-sub">Metodologia própria, atenção individualizada e foco no desenvolvimento técnico, físico e mental.</p>
+    <div class="servicos-grid">
+      <div class="servico-card">
+        <div class="servico-icon"><i class="fa-solid fa-user"></i></div>
+        <h3>Aula Particular</h3>
+        <p>Treino 100% personalizado com foco nas necessidades individuais. Do iniciante ao atleta de alto rendimento.</p>
+      </div>
+      <div class="servico-card">
+        <div class="servico-icon"><i class="fa-solid fa-users"></i></div>
+        <h3>Aula em Grupo</h3>
+        <p>Dinâmica de grupo para evolução técnica e tática, mantendo a qualidade e atenção de um treinador experiente.</p>
+      </div>
+      <div class="servico-card">
+        <div class="servico-icon"><i class="fa-solid fa-child-reaching"></i></div>
+        <h3>Iniciação Infantil</h3>
+        <p>Método lúdico e eficiente para introduzir crianças ao tênis com base sólida desde o início.</p>
+      </div>
+      <div class="servico-card">
+        <div class="servico-icon"><i class="fa-solid fa-trophy"></i></div>
+        <h3>Preparação para Torneios</h3>
+        <p>Treinamento específico para competições — estratégia de jogo, preparo físico e mental focados em resultados.</p>
+      </div>
+      <div class="servico-card">
+        <div class="servico-icon"><i class="fa-solid fa-chalkboard-teacher"></i></div>
+        <h3>Formação de Professores</h3>
+        <p>Consultoria técnica e prática para professores de tênis que querem elevar sua metodologia de ensino.</p>
+      </div>
+      <div class="servico-card">
+        <div class="servico-icon"><i class="fa-solid fa-building"></i></div>
+        <h3>Clínicas Corporativas</h3>
+        <p>Programas para empresas, hotéis e espaços de lazer — experiências de tênis para todos os perfis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="porque">
+  <div class="porque-inner">
+    <div class="porque-quote">
+      Porque acredito que o <em>tênis salva vidas.</em><br>
+      Porque trabalho para você <em>evoluir</em> — técnica, física e mentalmente.
+    </div>
+    <div class="porque-list">
+      <div class="porq-item">
+        <div class="porq-num">01</div>
+        <div class="porq-text"><strong>Metodologia própria.</strong> Construída ao longo de 20+ anos ao lado dos melhores — cada atleta recebe atenção total e um plano feito pra ele.</div>
+      </div>
+      <div class="porq-item">
+        <div class="porq-num">02</div>
+        <div class="porq-text"><strong>Vivência real de alto nível.</strong> Sparring de Top 100 e presente no Gillette Federer Tour — essa experiência entra em quadra com você.</div>
+      </div>
+      <div class="porq-item">
+        <div class="porq-num">03</div>
+        <div class="porq-text"><strong>Vencer vai além do troféu.</strong> Natalino cresceu com poucas condições e aprendeu que persistência é o maior talento que existe.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contato" id="contato">
+  <div class="container">
+    <div class="label" style="color:var(--clay);">Fale com Natalino</div>
+    <h2 class="section-title" style="color:var(--white);">Pronto para <em>evoluir</em>?</h2>
+    <p class="section-sub">Entre em contato pelas redes abaixo. O primeiro passo é uma conversa.</p>
+    <div class="contato-grid">
+      <div>
+        <div class="contato-msg">Tênis é <em>estilo de vida.</em><br>Vamos jogar juntos?</div>
+        <p class="contato-desc">Seja para aulas particulares, consultoria para professores ou clínicas corporativas — Natalino atende no São Paulo FC e demais espaços. Manda uma mensagem e vamos conversar.</p>
+        <a href="#servicos" class="btn btn-clay">Ver modalidades de treino</a>
+      </div>
+      <div>
+        <div class="social-links">
+          <a href="https://instagram.com/natateniss" target="_blank" class="social-link">
+            <i class="fa-brands fa-instagram"></i>
+            <span class="soc-label">Instagram</span>
+            <span class="soc-handle">@natateniss</span>
+          </a>
+          <a href="https://wa.me/55" target="_blank" class="social-link">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="soc-label">WhatsApp</span>
+            <span class="soc-handle">Fale diretamente</span>
+          </a>
+          <a href="mailto:contato@natateniss.com.br" class="social-link">
+            <i class="fa-solid fa-envelope"></i>
+            <span class="soc-label">E-mail</span>
+            <span class="soc-handle">contato@natateniss.com.br</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="#hero" class="footer-logo">Nata<span>Tennis</span></a>
+  <div class="footer-copy">© 2026 Natalino Sousa · NATATENISS · Todos os direitos reservados</div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('mobileMenu');
+    const burger = document.getElementById('hamburger');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !burger.contains(e.target)) closeMenu();
+  });
+</script>
+</body>
+</html>
