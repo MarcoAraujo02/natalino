@@ -503,6 +503,313 @@
     .porq-text { font-size: .9rem; color: rgba(255,255,255,0.75); line-height: 1.65; }
     .porq-text strong { color: var(--white); }
 
+    /* ===== GALERIA ===== */
+    .galeria { background: var(--dark); padding: 100px 5%; }
+    .galeria .section-title { color: var(--white); }
+    .galeria .section-sub { color: rgba(255,255,255,0.5); }
+
+    .galeria-tabs {
+      display: flex;
+      gap: 0;
+      margin-top: 48px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .galeria-tab {
+      padding: 12px 28px;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: .2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-family: 'Inter', sans-serif;
+    }
+    .galeria-tab:hover { color: rgba(255,255,255,0.7); }
+    .galeria-tab.active { color: var(--clay); border-bottom-color: var(--clay); }
+
+    .galeria-panel { display: none; }
+    .galeria-panel.active { display: block; }
+
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .galeria-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 1;
+      background: rgba(255,255,255,0.04);
+    }
+    .galeria-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s ease;
+      filter: saturate(.8);
+    }
+    .galeria-item:hover img { transform: scale(1.05); filter: saturate(1); }
+    .galeria-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(17,24,16,0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .3s;
+    }
+    .galeria-item:hover .galeria-item-overlay { background: rgba(17,24,16,0.45); }
+    .galeria-item-overlay i {
+      color: white;
+      font-size: 28px;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .galeria-item:hover .galeria-item-overlay i { opacity: 1; }
+
+    /* Placeholder tiles (quando não há foto real) */
+    .galeria-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.2);
+      font-size: .75rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .galeria-placeholder i { font-size: 28px; color: rgba(184,106,42,0.3); }
+
+    /* Vídeo tiles */
+    .galeria-video-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 16/9;
+      background: rgba(255,255,255,0.04);
+      grid-column: span 1;
+    }
+    .galeria-video-item iframe {
+      width: 100%; height: 100%;
+      border: none;
+      pointer-events: none;
+    }
+    .galeria-video-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(17,24,16,0.5);
+      transition: background .2s;
+    }
+    .galeria-video-item:hover .galeria-video-play { background: rgba(17,24,16,0.2); }
+    .galeria-video-play i {
+      font-size: 40px;
+      color: white;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+    }
+    .galeria-video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .video-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      overflow: hidden;
+    }
+    .video-card-thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: rgba(255,255,255,0.04);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .video-card-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(17,24,16,0.45);
+      transition: .2s;
+    }
+    .video-card-thumb:hover .video-play-btn { background: rgba(17,24,16,0.2); }
+    .video-play-btn i { font-size: 44px; color: white; filter: drop-shadow(0 2px 12px rgba(0,0,0,0.6)); }
+    .video-card-info {
+      padding: 16px 18px;
+    }
+    .video-card-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 6px;
+    }
+    .video-card-desc {
+      font-size: .8rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+    }
+    .video-empty {
+      aspect-ratio: 16/9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.25);
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .video-empty i { font-size: 32px; color: rgba(184,106,42,0.3); margin-bottom: 4px; }
+
+    .galeria-upload-hint {
+      margin-top: 28px;
+      padding: 16px 20px;
+      border: 1px dashed rgba(184,106,42,0.3);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: rgba(255,255,255,0.4);
+      font-size: .82rem;
+      line-height: 1.5;
+    }
+    .galeria-upload-hint i { color: var(--clay); font-size: 18px; flex-shrink: 0; }
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0.95);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-inner { position: relative; max-width: 90vw; max-height: 90vh; }
+    .lightbox-inner img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      display: block;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -44px; right: 0;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 28px;
+      cursor: pointer;
+      padding: 4px 8px;
+      transition: color .2s;
+    }
+    .lightbox-close:hover { color: var(--clay); }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      border: none;
+      color: white;
+      font-size: 22px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .lightbox-nav:hover { background: rgba(184,106,42,0.5); }
+    .lightbox-prev { left: -60px; }
+    .lightbox-next { right: -60px; }
+    .lightbox-caption {
+      position: absolute;
+      bottom: -40px;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: .8rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: .06em;
+    }
+
+    /* ===== EQUIPE ===== */
+    .equipe { background: var(--off); }
+    .equipe-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 56px;
+    }
+    .membro-card { text-align: center; }
+    .membro-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      filter: saturate(.85);
+      margin-bottom: 20px;
+      display: block;
+    }
+    .membro-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: rgba(184,106,42,0.07);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      color: rgba(184,106,42,0.4);
+      font-size: .75rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: 1px dashed rgba(184,106,42,0.2);
+    }
+    .membro-photo-placeholder i { font-size: 36px; }
+    .membro-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    .membro-role {
+      font-size: .8rem;
+      color: var(--clay);
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    /* ===== CONTATO ===== */
     .contato { background: var(--dark); }
 
     .contato-grid {
@@ -571,17 +878,27 @@
       .servicos-grid { grid-template-columns: repeat(2, 1fr); }
       .porque-inner { grid-template-columns: 1fr; gap: 40px; }
       .contato-grid { grid-template-columns: 1fr; gap: 40px; }
+      .galeria-grid { grid-template-columns: repeat(2, 1fr); }
+      .equipe-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .stats-inner { grid-template-columns: repeat(2, 1fr); }
       .servicos-grid { grid-template-columns: 1fr; }
+      .galeria-grid { grid-template-columns: repeat(2, 1fr); }
+      .galeria-video-grid { grid-template-columns: repeat(2, 1fr); }
+      .equipe-grid { grid-template-columns: 1fr; }
+      .lightbox-prev { left: -44px; }
+      .lightbox-next { right: -44px; }
     }
     @media (max-width: 480px) {
       section { padding: 80px 4%; }
       .stats-bar { padding: 0 4%; }
       .hero-content { padding: 0 4% 6vh; }
+      .galeria-grid { grid-template-columns: repeat(2, 1fr); gap: 2px; }
+      .lightbox-prev { left: 0; }
+      .lightbox-next { right: 0; }
     }
   </style>
 </head>
@@ -593,6 +910,7 @@
     <li><a href="#sobre">Trajetória</a></li>
     <li><a href="#servicos">Serviços</a></li>
     <li><a href="#conquistas">Conquistas</a></li>
+    <li><a href="#galeria">Galeria</a></li>
     <li><a href="#contato">Contato</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -603,6 +921,7 @@
   <a href="#sobre" onclick="closeMenu()">Trajetória</a>
   <a href="#servicos" onclick="closeMenu()">Serviços</a>
   <a href="#conquistas" onclick="closeMenu()">Conquistas</a>
+  <a href="#galeria" onclick="closeMenu()">Galeria</a>
   <a href="#contato" onclick="closeMenu()">Contato</a>
 </div>
 
@@ -614,7 +933,7 @@
     <div class="hero-eyebrow">Treinador &amp; Atleta de Tênis</div>
     <h1 class="hero-name">Natalino<br><span class="line2">Sousa</span></h1>
     <div class="hero-handle">@NATATENISS</div>
-    <p class="hero-desc">Mais de 20 anos dedicados ao tênis. Metodologia própria, formação ITF e Roland-Garros, e a experiência de estar em quadra com os maiores nomes do esporte mundial.</p>
+    <p class="hero-desc">Mais de 20 anos dedicados ao tênis. Metodologia própria, formação ITF e certificações internacionais, e a experiência de estar em quadra com os maiores nomes do esporte mundial.</p>
     <div class="hero-ctas">
       <a href="#contato" class="btn btn-clay">Treinar com Natalino</a>
       <a href="#sobre" class="btn btn-ghost">Conhecer a trajetória</a>
@@ -630,7 +949,7 @@
     </div>
     <div class="stat-item">
       <div class="stat-num">4x</div>
-      <div class="stat-label">Tetracampeão Interclubes 1ª Classe — SPFC</div>
+      <div class="stat-label">Tetracampeão Interclubes 1ª Classe</div>
     </div>
     <div class="stat-item">
       <div class="stat-num">ITF</div>
@@ -661,7 +980,7 @@
           <div class="cert-item"><i class="fa-solid fa-certificate"></i><span>Workshop Internacional de Tênis</span></div>
           <div class="cert-item"><i class="fa-solid fa-certificate"></i><span>ITF — Biomecânica, Coaching e Nutrição Esportiva</span></div>
           <div class="cert-item"><i class="fa-solid fa-certificate"></i><span>ITF — Comportamento, Estratégia e História do Tênis</span></div>
-          <div class="cert-item"><i class="fa-solid fa-certificate"></i><span>Workshop Tênis Excelência Roland-Garros Junior Series</span></div>
+          <div class="cert-item"><i class="fa-solid fa-certificate"></i><span>Workshop Tênis Excelência — Roland-Garros Junior Series (Federação Paulista)</span></div>
         </div>
       </div>
     </div>
@@ -690,7 +1009,7 @@
         <ul>
           <li>Venceu em <strong>todas as categorias</strong> da Federação Paulista de Tênis</li>
           <li>Alcançou a <strong>1ª Classe</strong> na Federação Paulista</li>
-          <li>Pelo São Paulo FC — <strong>tetracampeão do Interclubes 1ª Classe</strong></li>
+          <li>Tetracampeão do <strong>Interclubes 1ª Classe</strong></li>
           <li>Semifinalista do Brasileiro de Clubes Profissional</li>
           <li>Campeão do <strong>World Tennis Masters Tour MT100</strong></li>
           <li>Vários títulos em torneios abertos</li>
@@ -723,7 +1042,7 @@
   <div class="container">
     <div class="label">O que Natalino oferece</div>
     <h2 class="section-title">Modalidades de <em>Treino</em></h2>
-    <p class="section-sub">Metodologia própria, atenção individualizada e foco no desenvolvimento técnico, físico e mental.</p>
+    <p class="section-sub">Metodologia própria, atenção individualizada e foco no desenvolvimento técnico, físico e mental. Atende em espaços por toda São Paulo.</p>
     <div class="servicos-grid">
       <div class="servico-card">
         <div class="servico-icon"><i class="fa-solid fa-user"></i></div>
@@ -751,9 +1070,9 @@
         <p>Consultoria técnica e prática para professores de tênis que querem elevar sua metodologia de ensino.</p>
       </div>
       <div class="servico-card">
-        <div class="servico-icon"><i class="fa-solid fa-building"></i></div>
-        <h3>Clínicas Corporativas</h3>
-        <p>Programas para empresas, hotéis e espaços de lazer — experiências de tênis para todos os perfis.</p>
+        <div class="servico-icon"><i class="fa-solid fa-dumbbell"></i></div>
+        <h3>Preparação Física</h3>
+        <p>Acompanhamento físico opcional com equipe especializada — condicionamento e performance integrados ao treino técnico.</p>
       </div>
     </div>
   </div>
@@ -782,6 +1101,119 @@
   </div>
 </section>
 
+
+
+<!-- GALERIA -->
+<section class="galeria" id="galeria">
+  <div class="container">
+    <div class="label" style="color:var(--clay);">Momentos em quadra</div>
+    <h2 class="section-title" style="color:var(--white);">Galeria <em>NataTeniss</em></h2>
+    <p class="section-sub">Fotos e vídeos dos treinos, competições e bastidores.</p>
+
+    <div class="galeria-tabs">
+      <button class="galeria-tab active" onclick="switchTab('fotos', this)">
+        <i class="fa-solid fa-images" style="margin-right:6px;"></i>Fotos
+      </button>
+      <button class="galeria-tab" onclick="switchTab('videos', this)">
+        <i class="fa-brands fa-youtube" style="margin-right:6px;"></i>Vídeos
+      </button>
+    </div>
+
+    <!-- PAINEL FOTOS -->
+    <div class="galeria-panel active" id="panel-fotos">
+      <div class="galeria-grid" id="fotoGrid">
+        <div class="galeria-item" onclick="openLightbox(0)">
+          <img src="natalino6.jpeg" alt="Natalino Sousa — foto 1">
+          <div class="galeria-item-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+        <div class="galeria-item" onclick="openLightbox(1)">
+          <img src="natalino2.jpeg" alt="Natalino Sousa — foto 2">
+          <div class="galeria-item-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+        <div class="galeria-item" onclick="openLightbox(2)">
+          <img src="natalino3.jpeg" alt="Natalino Sousa — foto 3">
+          <div class="galeria-item-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+        <div class="galeria-item" onclick="openLightbox(3)">
+          <img src="natalino4.jpeg" alt="Natalino Sousa — foto 4">
+          <div class="galeria-item-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+        <div class="galeria-item" onclick="openLightbox(4)">
+          <img src="natalino5.jpeg" alt="Natalino Sousa — foto 5">
+          <div class="galeria-item-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+        <div class="galeria-item" onclick="openLightbox(5)">
+          <img src="natalino1.jpeg" alt="Natalino Sousa — foto 6">
+          <div class="galeria-item-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PAINEL VÍDEOS -->
+    <div class="galeria-panel" id="panel-videos">
+      <div class="galeria-video-grid">
+        <div class="video-card">
+          <div class="video-card-thumb">
+            <video controls style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="videonatalino1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-card-info">
+            <div class="video-card-title">NataTeniss — Vídeo 1</div>
+            <div class="video-card-desc">Treinos e bastidores NataTeniss.</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-card-thumb">
+            <video controls style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="videonatalino2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-card-info">
+            <div class="video-card-title">NataTeniss — Vídeo 2</div>
+            <div class="video-card-desc">Treinos e bastidores NataTeniss.</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-card-thumb">
+            <video controls style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="videonatalino3.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-card-info">
+            <div class="video-card-title">NataTeniss — Vídeo 3</div>
+            <div class="video-card-desc">Treinos e bastidores NataTeniss.</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-card-thumb">
+            <video controls style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="videonatalino4.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-card-info">
+            <div class="video-card-title">NataTeniss — Vídeo 4</div>
+            <div class="video-card-desc">Treinos e bastidores NataTeniss.</div>
+          </div>
+        </div>
+      </div>
+   
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+    <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+    <img id="lightboxImg" src="" alt="">
+    <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
 <section class="contato" id="contato">
   <div class="container">
     <div class="label" style="color:var(--clay);">Fale com Natalino</div>
@@ -790,7 +1222,7 @@
     <div class="contato-grid">
       <div>
         <div class="contato-msg">Tênis é <em>estilo de vida.</em><br>Vamos jogar juntos?</div>
-        <p class="contato-desc">Seja para aulas particulares, consultoria para professores ou clínicas corporativas — Natalino atende no São Paulo FC e demais espaços. Manda uma mensagem e vamos conversar.</p>
+        <p class="contato-desc">Seja para aulas particulares, consultoria para professores ou clínicas corporativas — Natalino atende em espaços por toda São Paulo. Manda uma mensagem e vamos conversar.</p>
         <a href="#servicos" class="btn btn-clay">Ver modalidades de treino</a>
       </div>
       <div>
@@ -805,11 +1237,6 @@
             <span class="soc-label">WhatsApp</span>
             <span class="soc-handle">Fale diretamente</span>
           </a>
-          <a href="mailto:contato@natateniss.com.br" class="social-link">
-            <i class="fa-solid fa-envelope"></i>
-            <span class="soc-label">E-mail</span>
-            <span class="soc-handle">contato@natateniss.com.br</span>
-          </a>
         </div>
       </div>
     </div>
@@ -822,6 +1249,7 @@
 </footer>
 
 <script>
+  // NAV
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
@@ -838,6 +1266,56 @@
     const menu = document.getElementById('mobileMenu');
     const burger = document.getElementById('hamburger');
     if (menu.classList.contains('open') && !menu.contains(e.target) && !burger.contains(e.target)) closeMenu();
+  });
+
+  // GALERIA TABS
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.galeria-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.galeria-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  // LIGHTBOX
+  const lightboxImages = [
+    { src: 'natalino1.jpeg', caption: 'Natalino Sousa — foto 1' },
+    { src: 'natalino2.jpeg', caption: 'Natalino Sousa — foto 2' },
+    { src: 'natalino3.jpeg', caption: 'Natalino Sousa — foto 3' },
+    { src: 'natalino4.jpeg', caption: 'Natalino Sousa — foto 4' },
+    { src: 'natalino5.jpeg', caption: 'Natalino Sousa — foto 5' },
+    { src: 'natalino6.jpeg', caption: 'Natalino Sousa — foto 6' },
+  ];
+  let currentLightboxIndex = 0;
+
+  function openLightbox(index) {
+    currentLightboxIndex = index;
+    updateLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeLightboxOnBg(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+  function navLightbox(dir) {
+    currentLightboxIndex = (currentLightboxIndex + dir + lightboxImages.length) % lightboxImages.length;
+    updateLightbox();
+  }
+  function updateLightbox() {
+    const img = lightboxImages[currentLightboxIndex];
+    document.getElementById('lightboxImg').src = img.src;
+    document.getElementById('lightboxImg').alt = img.caption;
+    document.getElementById('lightboxCaption').textContent = img.caption;
+  }
+  document.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft') navLightbox(-1);
+    if (e.key === 'ArrowRight') navLightbox(1);
+    if (e.key === 'Escape') closeLightbox();
   });
 </script>
 </body>
