@@ -503,7 +503,6 @@
     .porq-text { font-size: .9rem; color: rgba(255,255,255,0.75); line-height: 1.65; }
     .porq-text strong { color: var(--white); }
 
-    /* ===== GALERIA ===== */
     .galeria { background: var(--dark); padding: 100px 5%; }
     .galeria .section-title { color: var(--white); }
     .galeria .section-sub { color: rgba(255,255,255,0.5); }
@@ -577,7 +576,6 @@
     }
     .galeria-item:hover .galeria-item-overlay i { opacity: 1; }
 
-    /* Placeholder tiles (quando não há foto real) */
     .galeria-placeholder {
       width: 100%; height: 100%;
       display: flex;
@@ -593,7 +591,6 @@
     }
     .galeria-placeholder i { font-size: 28px; color: rgba(184,106,42,0.3); }
 
-    /* Vídeo tiles */
     .galeria-video-item {
       position: relative;
       overflow: hidden;
@@ -657,9 +654,7 @@
     }
     .video-card-thumb:hover .video-play-btn { background: rgba(17,24,16,0.2); }
     .video-play-btn i { font-size: 44px; color: white; filter: drop-shadow(0 2px 12px rgba(0,0,0,0.6)); }
-    .video-card-info {
-      padding: 16px 18px;
-    }
+    .video-card-info { padding: 16px 18px; }
     .video-card-title {
       font-family: 'Oswald', sans-serif;
       font-size: .95rem;
@@ -702,7 +697,6 @@
     }
     .galeria-upload-hint i { color: var(--clay); font-size: 18px; flex-shrink: 0; }
 
-    /* ===== LIGHTBOX ===== */
     .lightbox {
       display: none;
       position: fixed;
@@ -758,7 +752,6 @@
       letter-spacing: .06em;
     }
 
-    /* ===== EQUIPE ===== */
     .equipe { background: var(--off); }
     .equipe-grid {
       display: grid;
@@ -809,7 +802,6 @@
       text-transform: uppercase;
     }
 
-    /* ===== CONTATO ===== */
     .contato { background: var(--dark); }
 
     .contato-grid {
@@ -933,7 +925,7 @@
     <div class="hero-eyebrow">Treinador &amp; Atleta de Tênis</div>
     <h1 class="hero-name">Natalino<br><span class="line2">Sousa</span></h1>
     <div class="hero-handle">@NATATENISS</div>
-    <p class="hero-desc">Mais de 20 anos dedicados ao tênis. Metodologia própria, formação ITF e certificações internacionais, e a experiência de estar em quadra com os maiores nomes do esporte mundial.</p>
+    <p class="hero-desc">38 anos dedicados ao tênis — dos 5 anos como gandula até hoje, sem nunca parar. Metodologia própria, formação ITF e certificações internacionais, e a experiência de estar em quadra com os maiores nomes do esporte mundial.</p>
     <div class="hero-ctas">
       <a href="#contato" class="btn btn-clay">Treinar com Natalino</a>
       <a href="#sobre" class="btn btn-ghost">Conhecer a trajetória</a>
@@ -944,8 +936,8 @@
 <div class="stats-bar">
   <div class="stats-inner">
     <div class="stat-item">
-      <div class="stat-num">20+</div>
-      <div class="stat-label">Anos de experiência</div>
+      <div class="stat-num">38+</div>
+      <div class="stat-label">Anos ligado ao tênis</div>
     </div>
     <div class="stat-item">
       <div class="stat-num">4x</div>
@@ -972,9 +964,9 @@
       </div>
       <div class="sobre-text">
         <div class="label">Quem é Natalino</div>
-        <h2 class="section-title">Desde os <em>5 anos</em> em quadra.</h2>
+        <h2 class="section-title">Desde os <em>5 anos</em> em quadra — <em>38 anos</em> depois, ainda sem parar.</h2>
         <p>Tudo começou como gandula. Desde então, Natalino construiu uma trajetória marcada por dedicação, aprendizado ao lado de grandes nomes do tênis brasileiro e internacional, e uma metodologia própria que reflete cada experiência acumulada.</p>
-        <p>Formado em <strong>Educação Física</strong>, com especializações focadas no tênis de alta performance, Natalino alinha conhecimento técnico, ciência do esporte e experiência prática numa proposta de treinamento individualizada.</p>
+        <p>Formado em <strong>Educação Física</strong>, com especializações focadas no tênis de alta performance, Natalino alinha conhecimento técnico, ciência do esporte e experiência prática numa proposta de treinamento individualizada. São <strong>28 anos dando aulas</strong>, desde os 15 anos de idade.</p>
         <p>Viveu o dia a dia do tênis argentino nas academias Coria e Monachesi Hood, aprofundando o contato com o tênis sul-americano de excelência.</p>
         <div class="cert-list">
           <div class="cert-item"><i class="fa-solid fa-certificate"></i><span>Workshop Internacional de Tênis</span></div>
@@ -1087,7 +1079,7 @@
     <div class="porque-list">
       <div class="porq-item">
         <div class="porq-num">01</div>
-        <div class="porq-text"><strong>Metodologia própria.</strong> Construída ao longo de 20+ anos ao lado dos melhores — cada atleta recebe atenção total e um plano feito pra ele.</div>
+        <div class="porq-text"><strong>Metodologia própria.</strong> Construída ao longo de 28 anos de ensino — 38 no tênis — ao lado dos melhores. Cada atleta recebe atenção total e um plano feito pra ele.</div>
       </div>
       <div class="porq-item">
         <div class="porq-num">02</div>
@@ -1101,9 +1093,6 @@
   </div>
 </section>
 
-
-
-<!-- GALERIA -->
 <section class="galeria" id="galeria">
   <div class="container">
     <div class="label" style="color:var(--clay);">Momentos em quadra</div>
@@ -1119,7 +1108,6 @@
       </button>
     </div>
 
-    <!-- PAINEL FOTOS -->
     <div class="galeria-panel active" id="panel-fotos">
       <div class="galeria-grid" id="fotoGrid">
         <div class="galeria-item" onclick="openLightbox(0)">
@@ -1147,10 +1135,8 @@
           <div class="galeria-item-overlay"><i class="fa-solid fa-expand"></i></div>
         </div>
       </div>
-
     </div>
 
-    <!-- PAINEL VÍDEOS -->
     <div class="galeria-panel" id="panel-videos">
       <div class="galeria-video-grid">
         <div class="video-card">
@@ -1198,12 +1184,10 @@
           </div>
         </div>
       </div>
-   
     </div>
   </div>
 </section>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
   <div class="lightbox-inner">
     <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
@@ -1249,7 +1233,6 @@
 </footer>
 
 <script>
-  // NAV
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
@@ -1268,7 +1251,6 @@
     if (menu.classList.contains('open') && !menu.contains(e.target) && !burger.contains(e.target)) closeMenu();
   });
 
-  // GALERIA TABS
   function switchTab(tab, btn) {
     document.querySelectorAll('.galeria-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.galeria-panel').forEach(p => p.classList.remove('active'));
@@ -1276,7 +1258,6 @@
     document.getElementById('panel-' + tab).classList.add('active');
   }
 
-  // LIGHTBOX
   const lightboxImages = [
     { src: 'natalino1.jpeg', caption: 'Natalino Sousa — foto 1' },
     { src: 'natalino2.jpeg', caption: 'Natalino Sousa — foto 2' },
